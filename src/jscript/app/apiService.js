@@ -1,7 +1,7 @@
 export default {
   APIKEY: '15440827-454030fbfe14a611a1b7b063f',
   page: 1,
-  searchText: '',
+  searchText: [],
   updatePage() {
     this.page += 1;
     console.log(this);

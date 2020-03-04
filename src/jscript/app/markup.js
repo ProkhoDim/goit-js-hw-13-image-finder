@@ -12,22 +12,40 @@ const markupRef = {
 };
 
 const fetchImage = async searchQuery => {
-  searchQuery.spilt('').join('+');
+  const wordsInQuery = searchQuery.split(' ');
+  const queryForFetch = wordsInQuery.join('+');
+  if (wordsInQuery.length > apiService.searchText.length) {
+    console.log('API reset');
+    apiService.resetPage();
+    markupRef.jsResult.innerHTML = '';
+  }
   const response = await fetch(
-    `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${searchQuery}&page=${apiService.page}&per_page=12&key=${apiService.APIKEY}`,
+    `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${queryForFetch}&page=${apiService.page}&per_page=12&key=${apiService.APIKEY}`,
   );
-  const responseObj = response.json()
-  console.log(responseObj)
+  const responseObj = response.json();
+  apiService.searchText = wordsInQuery;
+  console.log('API at end', apiService)
+
+  return responseObj;
 };
 
-markupRef.input.addEventListener('input', debounce(markup))
+markupRef.input.addEventListener('input', debounce(markup, 500));
 
-
-async function markup(e) {
-  const textInInput = e.target.value;
-
-  const dataArray = await fetchImage(textInInput);
+async function markup() {
+  const textInInput = markupRef.input.value;
+  const data = await fetchImage(textInInput);
+  const dataArray = data.hits;
+  const htmlText = dataArray.map(item => galleryItem(item)).join('');
+  markupRef.jsResult.insertAdjacentHTML('beforeend', htmlText);
 }
+
+function loadMore() {
+  apiService.updatePage();
+  markup();
+}
+
+markupRef.loadMoreBtn.addEventListener('click', loadMore);
+
 // markupRef.loadMoreBtn.addEventListener('click', apiService.updatePage.bind(apiService));
 
 // function markup(e) {
