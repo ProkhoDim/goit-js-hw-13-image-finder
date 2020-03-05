@@ -21,3 +21,30 @@ body {
   width: 500px;
   font-size: 24px;
 }
+
+.gallery { 
+  display: flex;
+  /* justify-content: space-between; */
+  flex-flow: row wrap;
+}
+
+.photo-card {
+  width: 400px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: auto;
+  padding: 15px;
+}
+
+.photo-card img {
+  width: 100%;
+  object-fit: contain;
+  height: auto;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}

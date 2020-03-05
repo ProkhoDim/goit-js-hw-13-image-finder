@@ -14,7 +14,7 @@ const markupRef = {
 const fetchImage = async searchQuery => {
   const wordsInQuery = searchQuery.split(' ');
   const queryForFetch = wordsInQuery.join('+');
-  if (wordsInQuery.length > apiService.searchText.length) {
+  if (searchQuery !== apiService.searchText) {
     console.log('API reset');
     apiService.resetPage();
     markupRef.jsResult.innerHTML = '';
@@ -23,13 +23,13 @@ const fetchImage = async searchQuery => {
     `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${queryForFetch}&page=${apiService.page}&per_page=12&key=${apiService.APIKEY}`,
   );
   const responseObj = response.json();
-  apiService.searchText = wordsInQuery;
+  apiService.searchText = searchQuery;
   console.log('API at end', apiService)
 
   return responseObj;
 };
 
-markupRef.input.addEventListener('input', debounce(markup, 500));
+markupRef.input.addEventListener('blur', debounce(markup, 500));
 
 async function markup() {
   const textInInput = markupRef.input.value;
