@@ -3,6 +3,10 @@ html {
   width: 100vw;
   overflow-x: hidden;
 }
+* {
+  margin: 0;
+  padding: 0;
+}
 
 *,
 *::before,
@@ -22,7 +26,7 @@ body {
   font-size: 24px;
 }
 
-.gallery { 
+.gallery {
   display: flex;
   /* justify-content: space-between; */
   flex-flow: row wrap;
@@ -30,6 +34,7 @@ body {
 
 .photo-card {
   width: 400px;
+  /* min-height: 350px; */
   display: flex;
   flex-flow: column;
   justify-content: space-between;
@@ -39,6 +44,7 @@ body {
 
 .photo-card img {
   width: 100%;
+  /* min-height: 330px; */
   object-fit: contain;
   height: auto;
 }
@@ -47,4 +53,9 @@ body {
   display: flex;
   justify-content: space-between;
   flex-flow: row wrap;
+}
+
+.btn {
+  font-size: 24px;
+  margin: 20px;
 }
